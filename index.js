@@ -10,7 +10,7 @@ const keyValue = document.querySelectorAll('.cal-min button');
 
 let tempCalc = []; //上方顯示過程的陣列
 let tempResult = '0'; //最終計算結果顯示的字串
-let condition = '';//表示狀態用於顯示使用
+let condition = ''; //表示狀態用於顯示使用
 
 /**
  * @function
@@ -18,7 +18,7 @@ let condition = '';//表示狀態用於顯示使用
  * @param {number} [precision=12] - 取得浮點數內多少個整數（12個）
  */
 function isNumber(num) {
-    return Number.parseFloat(num).toPrecision(8);
+    return Number.parseFloat(num).toPrecision(12);
 }
 
 
@@ -29,7 +29,7 @@ function isNumber(num) {
  */
 function isPrice(num) {
     num = String(num);
-    const dotCheck = num.indexOf('.');
+    let dotCheck = num.indexOf('.');
     if (dotCheck !== -1) {
         return isNumber(num);
     }
@@ -56,23 +56,28 @@ function isCalculation(e) {
                 tempCalc = [];
                 tempResult = '0';
             }
-            if (tempCalc.length === 0 && calcValue === 0) {
-                return
-            };
+            if (condition === 'func') {
+                condition = '';
+            }
             tempCalc.push(calcValue);
             break;
 
         case 'func':
-            if (tempCalc.length === 0 && calcValue === 0) {
+            if (tempCalc.length === 0) {
                 return
             };
+            if (condition === 'func') {
+                return
+            }
+            condition = 'func'; //按下等於之後改變狀態，可以繼續做計算
             tempCalc.push(calcValue);
             break;
 
         case 'dot':
-            if (tempCalc.indexOf(".") >= 0) {
+            if (tempCalc.indexOf(".") >= 0 && condition === 'dot') {
                 return
             };
+            condition = 'dot'
             if (tempCalc.length === 0) {
                 tempCalc.push(0)
             }
@@ -83,7 +88,7 @@ function isCalculation(e) {
             if (tempCalc.length > 0) {
                 tempCalc.splice(tempCalc.length - 1, 1);
             }
-            if(tempCalc.length ===0){
+            if (tempCalc.length === 0) {
                 condition = 'clear'
                 tempCalc = [];
                 tempResult = '0'
@@ -92,6 +97,9 @@ function isCalculation(e) {
 
         case 'sum':
             const sumArr = [];
+            if (tempCalc.length === 0) {
+                return
+            }
             tempCalc.map(e => {
                 if (e === '÷') {
                     e = '/'
@@ -118,8 +126,6 @@ function isCalculation(e) {
     calc.innerHTML = tempCalc.join('');
     //calc.textContent = tempCalc.join('');
     total.innerHTML = isPrice(tempResult);
-
-
 
 }
 
