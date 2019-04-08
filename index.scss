@@ -1,0 +1,90 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+$width:calc(100%/4 - 20px);
+.computer {
+    background-color: #ddd;
+    height: 100vh;
+    width: 100%;
+    padding-top: 30px;
+    .cal-box {
+        width: 350px;
+        margin: 0 auto;
+    }
+    .cal-top {
+        text-align: right;
+        background-color: #6D6875;
+        padding: 10px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        p {
+            display: block;
+            width: 100%;
+            color: #FFB4A2;
+            margin: 0;
+            background-color: #6D6875;
+            border: 0;
+            text-align: right;
+            height: 20px;
+            &:focus {
+                outline: 0;
+            }
+        }
+        div {
+            font-size: 3em;
+            color: #fff;
+            overflow-x: auto;
+        }
+    }
+    .cal-min {    
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        background-color: #B5838D;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        button {
+            font-family: 'Roboto', sans-serif;
+            width: calc(100%/4 - 20px);
+            background-color: transparent;
+            border: 0;
+            color: #fff;
+            height: 65px;
+            margin: 10px;
+            font-weight: 100;
+            font-size: 25px;
+            cursor: pointer;
+            border-radius: 15px;
+            transition: background-color .2s ease-in-out;
+            &:focus {
+                outline: 0;
+            }
+            &:hover {
+                background-color: #FFB4A2;
+            }
+            &:nth-child(19) {
+                width: 155px;
+                text-align: right;
+                padding-right: 23px;
+                border-radius: 15px;
+                background-image: linear-gradient(to right, #FFB4A2, #FFCDB2);
+                &:focus {
+                    outline: 0;
+                }
+            }
+            &:nth-child(4n) {
+                background-color: #E5989B;
+                border-radius: 15px;
+                &:focus {
+                    outline: 0;
+                }
+                &:hover {
+                    background-color: #FFB4A2;
+                }
+            }
+        }
+    }
+}
